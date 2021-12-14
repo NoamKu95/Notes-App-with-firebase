@@ -45,16 +45,16 @@ export default function App(props) {
 
                     if (route.name === 'Map Mode') {
                         iconName = 'map';
-                        color = focused ? '#3f6bc0' : '#3f6bc0'
+                        color = focused ? '#3f6bc0' : '#436ab5'
                     } else if (route.name === 'List Mode') {
                         iconName = 'list';
-                        color = focused ? '#3f6bc0' : '#3f6bc0'
+                        color = focused ? '#3f6bc0' : '#436ab5'
                     }
 
                     return <Feather name={iconName} size={30} color={color} />;
                 },
                 tabBarActiveTintColor: '#3f6bc0', // text color of selected tab
-                tabBarInactiveTintColor: '#3f6bc0', // text color of not selected tab
+                tabBarInactiveTintColor: '#436ab5', // text color of not selected tab
                 tabBarStyle: {
                     backgroundColor: 'white'
                 },

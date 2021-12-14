@@ -173,7 +173,7 @@ export default function NotificationsList(props) {
                     notes.length == 0 ?
                         <></>
                         :
-                        <Text style={styles.mainHeading}> My Notes </Text>
+                        <Text style={styles.mainHeading}>My Notes</Text>
                 }
 
 
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
 
     //Alerts:
     alertMessageStyle: {
-        fontSize: 20, color: '#3a3b40', textAlign: 'center'
+        fontSize: 20, color: '#3a3b40', textAlign: 'right'
     },
     alertTitleStyle: {
         fontSize: 22, color: '#3a3b40', textAlign: 'center', fontWeight: 'bold'

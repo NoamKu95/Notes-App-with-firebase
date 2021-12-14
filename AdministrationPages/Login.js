@@ -329,6 +329,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
+    //Headings:
     appName: {
         color: '#3f6ac4',
         fontSize: 40,
@@ -368,7 +369,7 @@ const styles = StyleSheet.create({
     },
 
 
-    //Save Button:
+    //Button:
     loginButton: {
         backgroundColor: '#3f6ac4',
         borderRadius: 50,
@@ -407,6 +408,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: 'bold'
     },
+    
     //Signup text:
     signupText:
     {

@@ -152,7 +152,7 @@ export default function ViewEditNote(props) {
         //Get a timestamp of the date chosen for the note:
         var myDate = noteDate.split("/");
         var newDate = Math.round(new Date(myDate[2], myDate[1] - 1, myDate[0], new Date().getHours(), new Date().getMinutes(), new Date().getSeconds()));
-        
+
         //Prepare the object to be added to the firestore DB -
         var note = {
             date: { seconds: newDate }, //according to firebase's build - put timestamp under "seconds"
@@ -446,13 +446,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginLeft: 20
     },
-    notesHeading:
-    {
-        fontWeight: 'bold',
-        flex: 1,
-        alignSelf: 'flex-start',
-        marginTop: 27
-    },
+
 
     //Inputs:
     txtInput: {
@@ -534,7 +528,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
 
-
+    //Button:
     pickDateButton: {
         width: Dimensions.get('window').width * 0.85,
         backgroundColor: 'white',
@@ -549,9 +543,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
 
-    pickDateButtonText: {
-        color: 'black'
-    },
 
     //Spinner:
     spinnerTextStyle:
@@ -564,7 +555,7 @@ const styles = StyleSheet.create({
 
     //Alerts:
     alertMessageStyle: {
-        fontSize: 20, color: '#3a3b40', textAlign: 'center'
+        fontSize: 20, color: '#3a3b40', textAlign: 'right'
     },
     alertTitleStyle: {
         fontSize: 22, color: '#3a3b40', textAlign: 'center', fontWeight: 'bold'

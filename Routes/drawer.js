@@ -16,11 +16,6 @@ export default function NavDrawer() {
             initialRouteName="AdministrationStack"
             drawerPosition='right'
             keyboardDismissMode='on-drag'
-            screenOptions={{
-                activeTintColor: 'white',
-                inactiveTintColor: 'white',
-                activeBackgroundColor: '#3a3b40',
-            }}
             keyboardDismissMode
             screenOptions={{ headerShown: false }}
         >
@@ -28,9 +23,7 @@ export default function NavDrawer() {
             <Drawer.Screen
                 name="AdministrationStack"
                 component={AdministrationStack}
-                options={{
-                    swipeEnabled: false,
-                }}
+                options={{ swipeEnabled: false, }}
                 listeners={({ navigation }) => ({
                     focus: () => {
                         navigation.navigate('AdministrationStack');
@@ -41,9 +34,7 @@ export default function NavDrawer() {
             < Drawer.Screen
                 name="MainPagesStack"
                 component={MainPagesStack}
-                options={{
-                    swipeEnabled: false,
-                }}
+                options={{ swipeEnabled: false, }}
                 listeners={({ navigation }) => ({
                     focus: () => {
                         navigation.navigate('MainPagesStack');

@@ -1,3 +1,4 @@
+//#region Imports -
 //Outer Imports:
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -6,7 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MainPage from '../Main_Screens/MainPage';
 import ViewEditNote from '../Main_Screens/ViewEditNote';
 
-
+//#endregion
 
 
 export default class MainPagesStack extends React.Component {

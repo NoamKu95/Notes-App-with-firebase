@@ -1,12 +1,10 @@
+//#region Imports -
 //Outer Imports:
 import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar } from 'react-native';
-import { Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-//Inner Imports:
 
-
+//#endregion
 
 
 export default function WelcomeMessage({name, pressLogout}) {
@@ -26,7 +24,6 @@ export default function WelcomeMessage({name, pressLogout}) {
 
 const styles = StyleSheet.create({
 
-    //Top texts:
     upperLine: {
         flexDirection: 'row-reverse',
         justifyContent: 'space-between',

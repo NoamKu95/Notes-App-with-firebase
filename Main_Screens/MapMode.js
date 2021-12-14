@@ -542,18 +542,17 @@ export default function MapMode(props) {
                                     title={marker.title}
                                     description={marker.description}
                                     opacity={0.7}
-                                //image={{ uri: '../assets/BLUE_locationMarker.png', width: 20, height: 20 }}
                                 >
                                     <Callout tooltip onPress={() => viewNotePressed(marker)}>
                                         <View>
                                             <View style={styles.tooltipBubble}>
                                                 <Text style={styles.tooltipTitle}>
-                                                    {marker.title.length > 12 ? marker.title.substring(0, 10) + '...' : marker.title}
+                                                    {marker.title.length > 15 ? marker.title.substring(0, 12) + '...' : marker.title}
                                                 </Text>
                                                 <TouchableOpacity style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'baseline' }}>
                                                     <AntDesign name="right" size={15} color="#3a3b40" />
                                                     <Text style={styles.tooltipContent}>
-                                                        {marker.text.length > 15 ? marker.text.substring(0, 10) + '...' : marker.text}
+                                                        {marker.text.length > 18 ? marker.text.substring(0, 15) + '...' : marker.text}
                                                     </Text>
 
                                                 </TouchableOpacity>
@@ -577,14 +576,6 @@ export default function MapMode(props) {
 const styles = StyleSheet.create({
 
     //Containers:
-    listsButtonsContainer:
-    {
-        height: 55,
-        flexDirection: 'row',
-        backgroundColor: '#3a3b40',
-        justifyContent: 'space-evenly',
-        alignItems: 'center'
-    },
     upSectionContainer:
     {
         flexDirection: 'row',
@@ -655,7 +646,7 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderWidth: 0.5,
         padding: 15,
-        width: 155
+        width: 180
     },
     bubbleArrow:
     {
@@ -696,7 +687,7 @@ const styles = StyleSheet.create({
 
     //Alerts:
     alertMessageStyle: {
-        fontSize: 20, color: '#3a3b40', textAlign: 'center'
+        fontSize: 20, color: '#3a3b40', textAlign: 'right'
     },
     alertTitleStyle: {
         fontSize: 22, color: '#3a3b40', textAlign: 'center', fontWeight: 'bold'

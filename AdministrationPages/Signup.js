@@ -268,8 +268,8 @@ export default function Signup(props) {
 
                     <TouchableOpacity
                         onPress={validateInputs}
-                        style={styles.saveButton}>
-                        <Text style={styles.saveButtonText}>
+                        style={styles.signUpButton}>
+                        <Text style={styles.signUpButtonText}>
                             sign me up
                         </Text>
                     </TouchableOpacity>
@@ -330,8 +330,8 @@ const styles = StyleSheet.create({
     },
 
 
-    //Save Button:
-    saveButton: {
+    //Button:
+    signUpButton: {
         backgroundColor: '#3f6ac4',
         borderRadius: 50,
         padding: 7,
@@ -342,7 +342,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         marginVertical: 30
     },
-    saveButtonText: {
+    signUpButtonText: {
         color: 'white',
         textAlign: 'center',
         fontSize: 18,

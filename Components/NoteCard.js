@@ -11,6 +11,7 @@ import { Dimensions } from 'react-native';
 export default function NoteCard({ note }) {
 
     return (
+
         <View style={styles.noteContainer}>
 
             <Text style={styles.cardTitle}>{note.title}</Text>
@@ -27,6 +28,7 @@ export default function NoteCard({ note }) {
 
 const styles = StyleSheet.create({
 
+    //Container:
     noteContainer: {
         maxHeight: Dimensions.get('window').height / 6,
         backgroundColor: 'white',
@@ -53,6 +55,7 @@ const styles = StyleSheet.create({
         elevation: 4,
     },
 
+    //Texts:
     cardTitle: {
         fontSize: 14,
         color: 'black',
@@ -61,7 +64,6 @@ const styles = StyleSheet.create({
         borderColor: 'transparent',
         borderBottomColor: '#588ae9',
     },
-
     cardText: {
         marginVertical: 7,
         color: 'black',
