@@ -104,8 +104,8 @@ export default function NotificationsList(props) {
 
         //Order the notes by date (newest to oldes):
         notesArr.sort(function (a, b) {
-            var keyA = new Date(a.date.seconds),
-                keyB = new Date(b.date.seconds);
+            var keyA = a.date.seconds,
+                keyB = b.date.seconds;
             if (keyA < keyB) return 1;
             if (keyA > keyB) return -1;
             return 0;
