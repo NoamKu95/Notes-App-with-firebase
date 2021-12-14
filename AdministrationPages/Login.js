@@ -96,7 +96,7 @@ export default function Login(props) {
             let email = userEmail;
             if (reg.test(email) === false) {
 
-                setAlertMessage('The email address is not valid');
+                setAlertMessage('Email address is not valid');
                 setAlertTitle('Error');
                 setShowAlert(true);
             }
@@ -111,7 +111,7 @@ export default function Login(props) {
                 else {
 
                     if (userPass.length < 7) {
-                        setAlertMessage('Given password is too short');
+                        setAlertMessage('Password is too short');
                         setAlertTitle('Error');
                         setShowAlert(true);
                     }

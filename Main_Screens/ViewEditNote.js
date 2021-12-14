@@ -44,10 +44,6 @@ export default function ViewEditNote(props) {
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
 
-    //Geolocation:
-    const [where, setWhere] = useState({ alt: null, lng: null });
-    const [error, setError] = useState(null);
-
     //Loading animation:
     const [spinner, setSpinner] = useState(false);
 
@@ -98,6 +94,7 @@ export default function ViewEditNote(props) {
 
     //A new date was picked with the DatePicker:
     const onChange = (event, selectedDate) => {
+
         const currentDate = selectedDate || date;
         setShow(Platform.OS === 'ios');
         setDate(currentDate);
@@ -120,7 +117,7 @@ export default function ViewEditNote(props) {
         if (noteDate == '' || noteDate == null) {
 
             setSpinner(false);
-            setAlertMessage("Please select a date for the note");
+            setAlertMessage("Please select a date");
             setAlertTitle("Oops");
             setShowAlert(true);
         }
@@ -128,7 +125,7 @@ export default function ViewEditNote(props) {
             if (noteTitle == '' || noteTitle == null) {
 
                 setSpinner(false);
-                setAlertMessage('Please enter a title for the note');
+                setAlertMessage('Please enter a title');
                 setAlertTitle('Oops');
                 setShowAlert(true);
             }
@@ -136,7 +133,7 @@ export default function ViewEditNote(props) {
                 if (noteBody == '' || noteBody == null) {
 
                     setSpinner(false);
-                    setAlertMessage('Please enter a text for the note');
+                    setAlertMessage('Please enter description');
                     setAlertTitle('Oops');
                     setShowAlert(true);
                 }
@@ -152,12 +149,13 @@ export default function ViewEditNote(props) {
     //Get the user's current location and save it to the note:
     const getUsersLocation = async (action) => {
 
-        //Prepare the object to be added to the firestore DB:
+        //Get a timestamp of the date chosen for the note:
         var myDate = noteDate.split("/");
-        var newDate = new Date(myDate[2], myDate[1] - 1, myDate[0]);
-
+        var newDate = Math.round(new Date(myDate[2], myDate[1] - 1, myDate[0], new Date().getHours(), new Date().getMinutes(), new Date().getSeconds()));
+        
+        //Prepare the object to be added to the firestore DB -
         var note = {
-            date: { seconds: newDate.getTime() }, //according to firebase's build put timestamp under "seconds"
+            date: { seconds: newDate }, //according to firebase's build - put timestamp under "seconds"
             title: noteTitle,
             text: noteBody,
             latlng: {
