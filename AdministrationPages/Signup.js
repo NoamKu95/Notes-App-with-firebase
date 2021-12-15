@@ -8,7 +8,6 @@ import { StyleSheet, Text, View, TouchableOpacity, StatusBar, KeyboardAvoidingVi
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { Dimensions } from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
-import Spinner from 'react-native-loading-spinner-overlay';
 import { collection, addDoc } from 'firebase/firestore';
 
 //Inner Imports:
@@ -16,6 +15,7 @@ import Header from '../Components/Header';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../Firebase/firebase'
 import { db } from '../Firebase/firebase';
+import Spinner from '../Components/Spinner';
 
 //#endregion
 
@@ -132,7 +132,7 @@ export default function Signup(props) {
             const user = await createUserWithEmailAndPassword(auth, email, password);
 
             //Users' collection:
-            newUser = {
+            let newUser = {
                 firstName: firstName,
                 lastName: lastName,
                 emailAdress: email,
@@ -199,15 +199,7 @@ export default function Signup(props) {
                 contentContainerStyle={styles.alertContentContainerStyle}
             />
 
-            <Spinner
-                visible={spinner}
-                textContent={'Loading...'}
-                textStyle={styles.spinnerTextStyle}
-                color={'white'}
-                animation={'fade'}
-                overlayColor={'rgba(58, 59, 64, 0.65)'}
-            />
-
+            <Spinner visibility={spinner} />
 
             <ScrollView style={{ backgroundColor: 'white', minHeight: Dimensions.get('window').height - 45 }}>
 
@@ -246,6 +238,7 @@ export default function Signup(props) {
                                 defaultValue={email}
                                 onChangeText={(e) => setEmail(e)}
                                 maxLength={70} style={styles.txtInput}
+                                autoCapitalize = 'none'
                             >
                             </TextInput>
                             <Text style={styles.fieldText}>Email:</Text>
@@ -347,15 +340,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 18,
         alignSelf: 'center',
-        fontWeight: 'bold'
-    },
-
-
-    //Spinner:
-    spinnerTextStyle:
-    {
-        color: 'white',
-        fontSize: 26,
         fontWeight: 'bold'
     },
 

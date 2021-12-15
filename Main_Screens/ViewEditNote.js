@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, TouchableOpacity, View, Text, TextInput, StatusBar, Platform, Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import AwesomeAlert from 'react-native-awesome-alerts';
-import Spinner from 'react-native-loading-spinner-overlay';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { AutoGrowTextInput } from 'react-native-auto-grow-textinput';
 import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
@@ -16,6 +15,7 @@ import * as Location from 'expo-location';
 //Inner Imports:
 import Header from '../Components/Header';
 import { db } from '../Firebase/firebase';
+import Spinner from '../Components/Spinner';
 
 //Icons:
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -251,17 +251,7 @@ export default function ViewEditNote(props) {
                 contentContainerStyle={styles.alertContentContainerStyle}
             />
 
-            <Spinner
-                visible={spinner}
-                textContent={'Loading...'}
-                textStyle={styles.spinnerTextStyle}
-                color={'white'}
-                animation={'fade'}
-                overlayColor={'rgba(58, 59, 64, 0.65)'}
-            />
-
-
-
+            <Spinner visibility={spinner} />
 
             <ScrollView>
                 <View style={styles.mainContainer}>
@@ -542,16 +532,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignSelf: 'center'
     },
-
-
-    //Spinner:
-    spinnerTextStyle:
-    {
-        color: 'white',
-        fontSize: 26,
-        fontWeight: 'bold'
-    },
-
 
     //Alerts:
     alertMessageStyle: {

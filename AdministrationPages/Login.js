@@ -5,13 +5,13 @@ import { StyleSheet, TouchableOpacity, View, Text, TextInput, StatusBar, Keyboar
 import { CheckBox } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AwesomeAlert from 'react-native-awesome-alerts';
-import Spinner from 'react-native-loading-spinner-overlay';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { collection, getDocs, doc } from 'firebase/firestore';
 
 //Inner Imports:
 import { auth } from '../Firebase/firebase'
 import { db } from '../Firebase/firebase';
+import Spinner from '../Components/Spinner';
 
 //Icons:
 import { Ionicons } from '@expo/vector-icons';
@@ -205,14 +205,7 @@ export default function Login(props) {
                     contentContainerStyle={styles.alertContentContainerStyle}
                 />
 
-                <Spinner
-                    visible={spinner}
-                    textContent={'Loading...'}
-                    textStyle={styles.spinnerTextStyle}
-                    color={'white'}
-                    animation={'fade'}
-                    overlayColor={'rgba(58, 59, 64, 0.65)'}
-                />
+                <Spinner visibility={spinner} />
 
                 <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
 
@@ -228,6 +221,7 @@ export default function Login(props) {
                             onChangeText={(e) => setUserEmail(e)}
                             keyboardType='email-address'
                             defaultValue={userEmail}
+                            autoCapitalize = 'none'
                         >
                         </TextInput>
 
@@ -408,7 +402,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: 'bold'
     },
-    
+
     //Signup text:
     signupText:
     {
@@ -418,14 +412,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         fontWeight: 'bold',
         fontSize: 16
-    },
-
-    //Spiner:
-    spinnerTextStyle:
-    {
-        color: 'white',
-        fontSize: 26,
-        fontWeight: 'bold'
     },
 
     //Alerts:

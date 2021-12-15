@@ -6,7 +6,6 @@ import { StyleSheet, Text, TouchableOpacity, View, Dimensions, StatusBar } from 
 import { ScrollView } from 'react-native-gesture-handler';
 import { useState, useEffect } from 'react';
 import AwesomeAlert from 'react-native-awesome-alerts';
-import Spinner from 'react-native-loading-spinner-overlay';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { collection, getDocs } from 'firebase/firestore';
@@ -15,6 +14,7 @@ import { collection, getDocs } from 'firebase/firestore';
 import NoteCard from '../Components/NoteCard';
 import WelcomeMessage from '../Components/WelcomeMessage';
 import { db } from '../Firebase/firebase';
+import Spinner from '../Components/Spinner';
 
 //Icons:
 import { AntDesign } from '@expo/vector-icons';
@@ -155,14 +155,7 @@ export default function NotificationsList(props) {
                 contentContainerStyle={styles.alertContentContainerStyle}
             />
 
-            <Spinner
-                visible={spinner}
-                textContent={'Loading...'}
-                textStyle={styles.spinnerTextStyle}
-                color={'white'}
-                animation={'fade'}
-                overlayColor={'rgba(58, 59, 64, 0.65)'}
-            />
+            <Spinner visibility={spinner}/>
 
             <View style={styles.mainContainer}>
 
@@ -252,14 +245,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         left: 10,
         bottom: 30,
-    },
-
-    //Spinner:
-    spinnerTextStyle:
-    {
-        color: 'white',
-        fontSize: 26,
-        fontWeight: 'bold'
     },
 
     //Alerts:

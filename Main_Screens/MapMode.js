@@ -8,11 +8,11 @@ import { StyleSheet, Text, View, TouchableOpacity, StatusBar, Dimensions } from 
 import AwesomeAlert from 'react-native-awesome-alerts';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { PROVIDER_GOOGLE } from 'react-native-maps';
-import Spinner from 'react-native-loading-spinner-overlay';
 import { collection, getDocs } from 'firebase/firestore';
 
 //Inner Imports:
 import { db } from '../Firebase/firebase';
+import Spinner from '../Components/Spinner';
 
 //Icons:
 import { MaterialIcons } from '@expo/vector-icons';
@@ -482,14 +482,7 @@ export default function MapMode(props) {
                 contentContainerStyle={styles.alertContentContainerStyle}
             />
 
-            <Spinner
-                visible={spinner}
-                textContent={'Loading...'}
-                textStyle={styles.spinnerTextStyle}
-                color={'white'}
-                animation={'fade'}
-                overlayColor={'rgba(58, 59, 64, 0.65)'}
-            />
+            <Spinner visibility={spinner} />
 
             <View style={styles.upSectionContainer}>
 
@@ -675,14 +668,6 @@ const styles = StyleSheet.create({
     {
         marginVertical: 3,
         lineHeight: 14
-    },
-
-    //Spinner:
-    spinnerTextStyle:
-    {
-        color: 'white',
-        fontSize: 26,
-        fontWeight: 'bold'
     },
 
     //Alerts:
