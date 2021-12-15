@@ -5,7 +5,7 @@ import * as React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Dimensions, StatusBar } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useState, useEffect } from 'react';
-import AwesomeAlert from 'react-native-awesome-alerts';
+// import AwesomeAlert from 'react-native-awesome-alerts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { collection, getDocs } from 'firebase/firestore';
@@ -15,6 +15,7 @@ import NoteCard from '../Components/NoteCard';
 import WelcomeMessage from '../Components/WelcomeMessage';
 import { db } from '../Firebase/firebase';
 import Spinner from '../Components/Spinner';
+import AlertPopup from '../Components/AlertPopup';
 
 //Icons:
 import { AntDesign } from '@expo/vector-icons';
@@ -135,27 +136,9 @@ export default function NotificationsList(props) {
         <>
             <StatusBar backgroundColor='#fafafa' barStyle='dark-content' />
 
-            <AwesomeAlert
-                show={showAlert}
-                showProgress={false}
-                title={alertTitle}
-                message={alertMessage}
-                closeOnTouchOutside={false}
-                closeOnHardwareBackPress={false}
-                showCancelButton={false}
-                showConfirmButton={true}
-                confirmText="confirm"
-                confirmButtonColor="#3f6ac4"
-                onConfirmPressed={() => { setShowAlert(false) }}
-                messageStyle={styles.alertMessageStyle}
-                titleStyle={styles.alertTitleStyle}
-                overlayStyle={{ backgroundColor: 'rgba(76, 76, 76, 0.69)' }}
-                confirmButtonStyle={styles.alertConfirmBtnStyle}
-                confirmButtonTextStyle={styles.alertConfirmBtnTxtStyle}
-                contentContainerStyle={styles.alertContentContainerStyle}
-            />
+            <AlertPopup showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} alertTitle={alertTitle}/>
 
-            <Spinner visibility={spinner}/>
+            <Spinner visibility={spinner} />
 
             <View style={styles.mainContainer}>
 
@@ -246,21 +229,4 @@ const styles = StyleSheet.create({
         left: 10,
         bottom: 30,
     },
-
-    //Alerts:
-    alertMessageStyle: {
-        fontSize: 20, color: '#3a3b40', textAlign: 'right'
-    },
-    alertTitleStyle: {
-        fontSize: 22, color: '#3a3b40', textAlign: 'center', fontWeight: 'bold'
-    },
-    alertConfirmBtnStyle: {
-        borderRadius: 50, width: 180
-    },
-    alertConfirmBtnTxtStyle: {
-        fontSize: 17, padding: 5, textAlign: 'center', fontWeight: 'bold'
-    },
-    alertContentContainerStyle: {
-        borderRadius: 15, width: 300
-    }
 });

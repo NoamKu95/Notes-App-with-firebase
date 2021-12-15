@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, TouchableOpacity, View, Text, TextInput, StatusBar, KeyboardAvoidingView, Dimensions } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import AwesomeAlert from 'react-native-awesome-alerts';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { collection, getDocs, doc } from 'firebase/firestore';
 
@@ -12,6 +11,7 @@ import { collection, getDocs, doc } from 'firebase/firestore';
 import { auth } from '../Firebase/firebase'
 import { db } from '../Firebase/firebase';
 import Spinner from '../Components/Spinner';
+import AlertPopup from '../Components/AlertPopup';
 
 //Icons:
 import { Ionicons } from '@expo/vector-icons';
@@ -185,25 +185,7 @@ export default function Login(props) {
 
                 <StatusBar backgroundColor='white' barStyle='dark-content' />
 
-                <AwesomeAlert
-                    show={showAlert}
-                    showProgress={false}
-                    title={alertTitle}
-                    message={alertMessage}
-                    closeOnTouchOutside={false}
-                    closeOnHardwareBackPress={false}
-                    showCancelButton={false}
-                    showConfirmButton={true}
-                    confirmText="confirm"
-                    confirmButtonColor="#3f6ac4"
-                    onConfirmPressed={() => { setShowAlert(false) }}
-                    messageStyle={styles.alertMessageStyle}
-                    titleStyle={styles.alertTitleStyle}
-                    overlayStyle={{ backgroundColor: 'rgba(76, 76, 76, 0.69)' }}
-                    confirmButtonStyle={styles.alertConfirmBtnStyle}
-                    confirmButtonTextStyle={styles.alertConfirmBtnTxtStyle}
-                    contentContainerStyle={styles.alertContentContainerStyle}
-                />
+                <AlertPopup showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} alertTitle={alertTitle}/>
 
                 <Spinner visibility={spinner} />
 
