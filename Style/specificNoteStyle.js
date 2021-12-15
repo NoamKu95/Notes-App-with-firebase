@@ -22,7 +22,7 @@ const specificNoteStyle = StyleSheet.create({
         fontSize: 40,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginTop: 45,
+        marginTop: 30,
         marginBottom: 20
     },
     heading: {
@@ -35,6 +35,11 @@ const specificNoteStyle = StyleSheet.create({
         fontWeight: 'bold',
         alignSelf: 'center',
         marginLeft: 20
+    },
+    fromGallery:
+    {
+        marginVertical: 15,
+        fontWeight: 'bold'
     },
 
 
@@ -97,6 +102,14 @@ const specificNoteStyle = StyleSheet.create({
         color: 'black'
     },
 
+    galleryPhoto:
+    {
+        borderRadius: 20,
+        alignSelf: 'center',
+        width: '100%',
+        height: Dimensions.get('window').height / 4
+    },
+
     //Save Button:
     saveButton: {
         backgroundColor: '#3f6ac4',
@@ -131,6 +144,32 @@ const specificNoteStyle = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignSelf: 'center'
+    },
+
+    //Sticky Button:
+    stickyLow: {
+        position: 'absolute',
+        width: 50,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        right: 10,
+        bottom: 35,
+        zIndex: 2,
+        backgroundColor: '#588ae9',
+        borderRadius: 50
+    },
+    stickyHigh: {
+        position: 'absolute',
+        width: 50,
+        height: 50,
+        alignItems: 'center',
+        justifyContent: 'center',
+        right: 10,
+        bottom: 85,
+        zIndex: 2,
+        backgroundColor: '#588ae9',
+        borderRadius: 50
     },
 
 });

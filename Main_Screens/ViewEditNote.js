@@ -4,12 +4,13 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { TouchableOpacity, View, Text, TextInput, StatusBar, Platform, Dimensions } from 'react-native';
+import { TouchableOpacity, View, Text, TextInput, StatusBar, Platform, Image, Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { AutoGrowTextInput } from 'react-native-auto-grow-textinput';
 import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestore';
 import * as Location from 'expo-location';
+import * as ImagePicker from 'expo-image-picker';
 
 //Inner Imports:
 import specificNoteStyle from '../Style/specificNoteStyle';
@@ -21,7 +22,8 @@ import AlertPopup from '../Components/AlertPopup';
 //Icons:
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-
+import { MaterialIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 //#endregion 
 
@@ -39,6 +41,7 @@ export default function ViewEditNote(props) {
     const [noteTitle, setNoteTitle] = useState(props.route.params.note.title);
     const [noteBody, setNoteBody] = useState(props.route.params.note.text);
     const [noteId, setNoteId] = useState(props.route.params.note.id);
+    const [photoUri, setPhotoUri] = useState(props.route.params.note.photoUri);
 
     // Date:
     const [date, setDate] = useState(new Date());
@@ -112,6 +115,28 @@ export default function ViewEditNote(props) {
     };
 
 
+    const openDeviceGalery = async () => {
+
+        //Ask for permission from the user:
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+            console.log("cant acess");
+        }
+
+        //Open the gallery:
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.cancelled) {
+            setPhotoUri(result.uri);
+        }
+    }
+
+
     //Check all fields are correctly filled before saving:
     const validateFields = (action) => {
 
@@ -162,7 +187,8 @@ export default function ViewEditNote(props) {
             latlng: {
                 latitude: null,
                 longitude: null
-            }
+            },
+            photoUri: photoUri
         }
 
         //Get user's corrent location:
@@ -200,7 +226,7 @@ export default function ViewEditNote(props) {
 
         //Send updated note to the firestore database:
         let noteDoc = doc(db, "notes", noteId); // focus on the right note to update in the firestore db
-        const newFields = { title: note.title, text: note.text, date: note.date }; // we want to update specific fields
+        const newFields = { title: note.title, text: note.text, date: note.date, photoUri: note.photoUri }; // we want to update specific fields
         await updateDoc(noteDoc, newFields);
 
         setIsEditing(false);
@@ -232,7 +258,7 @@ export default function ViewEditNote(props) {
 
             <Header navigation={props.navigation} showArrow={true} showMenu={true} />
 
-            <AlertPopup showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} alertTitle={alertTitle}/>
+            <AlertPopup showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} alertTitle={alertTitle} />
 
             <Spinner visibility={spinner} />
 
@@ -362,6 +388,38 @@ export default function ViewEditNote(props) {
                                     style={specificNoteStyle.multilineInput}
                                 />
                             </View>
+                    }
+
+
+                    {
+                        photoUri != null ?
+                            <View>
+                                <Text style={specificNoteStyle.fromGallery}>From gallery:</Text>
+                                <Image source={{ uri: photoUri }} style={specificNoteStyle.galleryPhoto} />
+                            </View>
+                            :
+                            <></>
+                    }
+
+
+                    {
+                        (isNewNote || isEditing) ?
+                            photoUri != null ?
+                                <TouchableOpacity
+                                    activeOpacity={0.7}
+                                    onPress={() => setPhotoUri(null)}
+                                    style={specificNoteStyle.stickyHigh}>
+                                    <Ionicons name="remove" size={30} color="white" />
+                                </TouchableOpacity>
+                                :
+                                <TouchableOpacity
+                                    activeOpacity={0.7}
+                                    onPress={() => openDeviceGalery()}
+                                    style={specificNoteStyle.stickyLow}>
+                                    <MaterialIcons name="add-photo-alternate" size={30} color="white" />
+                                </TouchableOpacity>
+                            :
+                            <></>
                     }
 
 
