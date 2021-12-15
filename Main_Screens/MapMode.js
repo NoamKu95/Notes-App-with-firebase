@@ -4,12 +4,13 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, Text, View, TouchableOpacity, StatusBar, Dimensions } from 'react-native';
+import { Text, View, TouchableOpacity, StatusBar, Dimensions } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 import { PROVIDER_GOOGLE } from 'react-native-maps';
 import { collection, getDocs } from 'firebase/firestore';
 
 //Inner Imports:
+import mapModeStyle from '../Style/mapModeStyle';
 import { db } from '../Firebase/firebase';
 import Spinner from '../Components/Spinner';
 import AlertPopup from '../Components/AlertPopup';
@@ -466,9 +467,9 @@ export default function MapMode(props) {
 
             <Spinner visibility={spinner} />
 
-            <View style={styles.upSectionContainer}>
+            <View style={mapModeStyle.upSectionContainer}>
 
-                <View style={styles.swichableContainer}>
+                <View style={mapModeStyle.swichableContainer}>
 
                     <MaterialIcons name="keyboard-arrow-right" size={25} color="#3f6ac4" onPress={() => changeMapStyle()} />
                     <Text style={{ color: '#3f6ac4', fontSize: 17 }}>{mapStyleToDisplay}</Text>
@@ -487,14 +488,14 @@ export default function MapMode(props) {
             <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => props.createNewNote()}
-                style={styles.touchableOpacityStyle}>
+                style={mapModeStyle.touchableOpacityStyle}>
                 <AntDesign name="pluscircle" size={45} color="#588ae9" />
             </TouchableOpacity>
 
 
 
             <MapView
-                style={styles.mapGeneralStyle}
+                style={mapModeStyle.mapGeneralStyle}
                 region={focusRegion}
                 provider={PROVIDER_GOOGLE}
                 customMapStyle={mapStyleToDisplay == 'Light Mode' ? lightMapStyle : darkMapStyle}
@@ -520,20 +521,20 @@ export default function MapMode(props) {
                                 >
                                     <Callout tooltip onPress={() => viewNotePressed(marker)}>
                                         <View>
-                                            <View style={styles.tooltipBubble}>
-                                                <Text style={styles.tooltipTitle}>
+                                            <View style={mapModeStyle.tooltipBubble}>
+                                                <Text style={mapModeStyle.tooltipTitle}>
                                                     {marker.title.length > 15 ? marker.title.substring(0, 12) + '...' : marker.title}
                                                 </Text>
                                                 <TouchableOpacity style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'baseline' }}>
                                                     <AntDesign name="right" size={15} color="#3a3b40" />
-                                                    <Text style={styles.tooltipContent}>
+                                                    <Text style={mapModeStyle.tooltipContent}>
                                                         {marker.text.length > 18 ? marker.text.substring(0, 15) + '...' : marker.text}
                                                     </Text>
 
                                                 </TouchableOpacity>
                                             </View>
-                                            <View style={styles.bubbleArrowBorder} />
-                                            <View style={styles.bubbleArrow} />
+                                            <View style={mapModeStyle.bubbleArrowBorder} />
+                                            <View style={mapModeStyle.bubbleArrow} />
                                         </View>
                                     </Callout>
 
@@ -546,109 +547,3 @@ export default function MapMode(props) {
         </>
     );
 }
-
-
-const styles = StyleSheet.create({
-
-    //Containers:
-    upSectionContainer:
-    {
-        flexDirection: 'row',
-        backgroundColor: '#fafafa',
-        height: 45,
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-    },
-    swichableContainer:
-    {
-        flexDirection: 'row',
-    },
-
-
-    //Button:
-    buttonStyle:
-    {
-        backgroundColor: '#3a3b40',
-        borderColor: 'white',
-        borderWidth: 1,
-        borderRadius: 50,
-        padding: 5,
-        width: 120,
-        height: 35,
-        display: 'flex',
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
-    buttonTextStyle:
-    {
-        color: 'white',
-        textAlign: 'center',
-        fontSize: 14,
-        alignSelf: 'center',
-        fontWeight: 'bold'
-    },
-
-
-    //Sticky Button:
-    touchableOpacityStyle: {
-        position: 'absolute',
-        width: 50,
-        height: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        left: 10,
-        bottom: 6,
-        zIndex: 2
-    },
-
-
-    //Map:
-    mapGeneralStyle:
-    {
-        flex: 0.7,
-        width: Dimensions.get('window').width,
-        minHeight: Dimensions.get('window').height - 25
-    },
-
-
-    //Tooltip:
-    tooltipBubble:
-    {
-        flexDirection: 'column',
-        alignSelf: 'flex-start',
-        backgroundColor: 'white',
-        borderRadius: 6,
-        borderColor: '#ccc',
-        borderWidth: 0.5,
-        padding: 15,
-        width: 180
-    },
-    bubbleArrow:
-    {
-        backgroundColor: 'transparent',
-        borderColor: 'transparent',
-        borderTopColor: 'white',
-        borderWidth: 16,
-        alignSelf: 'center',
-        marginTop: -32
-    },
-    bubbleArrowBorder:
-    {
-        backgroundColor: 'transparent',
-        borderColor: 'transparent',
-        borderTopColor: '#007a87',
-        borderWidth: 16,
-        alignSelf: 'center',
-        marginTop: -0.5
-    },
-    tooltipTitle:
-    {
-        fontSize: 17,
-        fontWeight: 'bold'
-    },
-    tooltipContent:
-    {
-        marginVertical: 3,
-        lineHeight: 14
-    },
-});

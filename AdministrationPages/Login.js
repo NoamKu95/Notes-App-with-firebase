@@ -1,13 +1,14 @@
 //#region Imports -
 //Outer Imports:
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, View, Text, TextInput, StatusBar, KeyboardAvoidingView, Dimensions } from 'react-native';
+import { TouchableOpacity, View, Text, TextInput, StatusBar, KeyboardAvoidingView, Dimensions } from 'react-native';
 import { CheckBox } from 'react-native-elements';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { collection, getDocs, doc } from 'firebase/firestore';
 
 //Inner Imports:
+import loginStyle from '../Style/loginStyle';
 import { auth } from '../Firebase/firebase'
 import { db } from '../Firebase/firebase';
 import Spinner from '../Components/Spinner';
@@ -181,7 +182,7 @@ export default function Login(props) {
 
     return (
         <>
-            <View style={styles.mainContainer}>
+            <View style={loginStyle.mainContainer}>
 
                 <StatusBar backgroundColor='white' barStyle='dark-content' />
 
@@ -191,14 +192,14 @@ export default function Login(props) {
 
                 <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset}>
 
-                    <Text style={styles.appName}>Notes App</Text>
+                    <Text style={loginStyle.appName}>Notes App</Text>
 
-                    <View style={styles.viewContainer}>
+                    <View style={loginStyle.viewContainer}>
 
-                        <Ionicons name="at" size={28} color="black" style={styles.iconStyle} />
+                        <Ionicons name="at" size={28} color="black" style={loginStyle.iconStyle} />
 
                         <TextInput
-                            style={styles.txtInputWithIcon}
+                            style={loginStyle.txtInputWithIcon}
                             placeholder={'email'}
                             onChangeText={(e) => setUserEmail(e)}
                             keyboardType='email-address'
@@ -211,12 +212,12 @@ export default function Login(props) {
 
                     {
                         showPassword ?
-                            <View style={styles.viewContainer}>
+                            <View style={loginStyle.viewContainer}>
 
-                                <MaterialCommunityIcons name="eye-outline" size={24} color="#3a3b40" style={styles.iconStyle} onPress={() => { setShowPassword(false) }} />
+                                <MaterialCommunityIcons name="eye-outline" size={24} color="#3a3b40" style={loginStyle.iconStyle} onPress={() => { setShowPassword(false) }} />
 
                                 <TextInput
-                                    style={styles.txtInputWithIcon}
+                                    style={loginStyle.txtInputWithIcon}
                                     placeholder={'password'}
                                     onChangeText={(e) => setUserPass(e)}
                                     defaultValue={userPass}
@@ -225,12 +226,12 @@ export default function Login(props) {
 
                             </View>
                             :
-                            <View style={styles.viewContainer}>
+                            <View style={loginStyle.viewContainer}>
 
-                                <MaterialCommunityIcons name="eye-off-outline" size={24} color="#3a3b40" style={styles.iconStyle} onPress={() => { setShowPassword(true) }} />
+                                <MaterialCommunityIcons name="eye-off-outline" size={24} color="#3a3b40" style={loginStyle.iconStyle} onPress={() => { setShowPassword(true) }} />
 
                                 <TextInput secureTextEntry
-                                    style={styles.txtInputWithIcon}
+                                    style={loginStyle.txtInputWithIcon}
                                     placeholder={'password'}
                                     onChangeText={(e) => setUserPass(e)}
                                     defaultValue={userPass}
@@ -243,16 +244,16 @@ export default function Login(props) {
 
                 <TouchableOpacity
                     onPress={() => validateFields()}
-                    style={styles.loginButton}
+                    style={loginStyle.loginButton}
                 >
                     <Text
-                        style={styles.loginButtonText}>
+                        style={loginStyle.loginButtonText}>
                         Login
                     </Text>
                 </TouchableOpacity>
 
 
-                <View style={styles.bottomContainerStyle}>
+                <View style={loginStyle.bottomContainerStyle}>
 
                     <TouchableOpacity>
                         <CheckBox
@@ -260,8 +261,8 @@ export default function Login(props) {
                             title='Remember me'
                             checked={checkedRemember}
                             checkedColor='#3f6ac4'
-                            containerStyle={styles.chContainerStyle}
-                            textStyle={styles.chTextStyle}
+                            containerStyle={loginStyle.chContainerStyle}
+                            textStyle={loginStyle.chTextStyle}
                         />
                     </TouchableOpacity>
 
@@ -276,7 +277,7 @@ export default function Login(props) {
                         setUserEmail(null); setUserPass(null);
                         props.navigation.navigate('Signup')
                     }}
-                    style={styles.signupText}
+                    style={loginStyle.signupText}
                 >
                     Don't have an account yet?
                 </Text>
@@ -284,132 +285,3 @@ export default function Login(props) {
         </>
     );
 }
-
-const styles = StyleSheet.create({
-
-    //Containers:
-    mainContainer:
-    {
-        backgroundColor: 'white',
-        height: Dimensions.get('window').height
-    },
-    viewContainer: {
-        flexDirection: 'row',
-        alignItems: 'baseline',
-        alignSelf: 'center',
-        width: Dimensions.get('window').width * 0.9
-    },
-    //Checkbox Container:
-    bottomContainerStyle: {
-        alignSelf: 'center',
-        alignItems: 'center',
-    },
-
-    //Headings:
-    appName: {
-        color: '#3f6ac4',
-        fontSize: 40,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: Dimensions.get('window').height / 5
-    },
-
-
-    //Icons:
-    iconStyle: {
-        backgroundColor: 'white',
-        paddingRight: 15,
-        paddingTop: 11,
-        height: 50,
-        borderWidth: 1,
-        borderColor: 'transparent',
-        borderBottomColor: '#3f6ac4',
-        borderLeftColor: '#3f6ac4'
-    },
-
-
-    //Text Inputs:
-    txtInputWithIcon:
-    {
-        paddingVertical: 10,
-        paddingHorizontal: 15,
-        marginVertical: 15,
-        height: 50,
-        backgroundColor: 'white',
-        borderColor: 'transparent',
-        borderWidth: 1,
-        borderBottomColor: '#3f6ac4',
-        flex: 1,
-        textAlign: 'center',
-        paddingRight: 50,
-    },
-
-
-    //Button:
-    loginButton: {
-        backgroundColor: '#3f6ac4',
-        borderRadius: 50,
-        padding: 7,
-        width: Dimensions.get('window').width * 0.9,
-        height: 55,
-        display: 'flex',
-        justifyContent: 'center',
-        alignSelf: 'center',
-        margin: 18
-    },
-    loginButtonText:
-    {
-        color: 'white',
-        textAlign: 'center',
-        fontSize: 18,
-        alignSelf: 'center',
-        fontWeight: 'bold'
-    },
-
-
-    //Checkbox:
-    chTextStyle: {
-        color: '#3f6ac4',
-        fontSize: 15
-    },
-    chContainerStyle: {
-        backgroundColor: 'white',
-        borderWidth: 0,
-    },
-
-
-    //Forgot Pass:
-    textStyle: {
-        color: '#3f6ac4',
-        fontSize: 15,
-        fontWeight: 'bold'
-    },
-
-    //Signup text:
-    signupText:
-    {
-        color: '#3f6ac4',
-        position: 'absolute',
-        bottom: 15,
-        alignSelf: 'center',
-        fontWeight: 'bold',
-        fontSize: 16
-    },
-
-    //Alerts:
-    alertMessageStyle: {
-        fontSize: 20, color: '#3a3b40', textAlign: 'right'
-    },
-    alertTitleStyle: {
-        fontSize: 22, color: '#3a3b40', textAlign: 'center', fontWeight: 'bold'
-    },
-    alertConfirmBtnStyle: {
-        borderRadius: 50, width: 180
-    },
-    alertConfirmBtnTxtStyle: {
-        fontSize: 17, padding: 5, textAlign: 'center', fontWeight: 'bold'
-    },
-    alertContentContainerStyle: {
-        borderRadius: 15, width: 300
-    }
-})

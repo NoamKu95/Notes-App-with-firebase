@@ -4,7 +4,7 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, TouchableOpacity, View, Text, TextInput, StatusBar, Platform, Dimensions } from 'react-native';
+import { TouchableOpacity, View, Text, TextInput, StatusBar, Platform, Dimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { AutoGrowTextInput } from 'react-native-auto-grow-textinput';
@@ -12,6 +12,7 @@ import { collection, addDoc, updateDoc, deleteDoc, doc } from 'firebase/firestor
 import * as Location from 'expo-location';
 
 //Inner Imports:
+import specificNoteStyle from '../Style/specificNoteStyle';
 import Header from '../Components/Header';
 import { db } from '../Firebase/firebase';
 import Spinner from '../Components/Spinner';
@@ -236,7 +237,7 @@ export default function ViewEditNote(props) {
             <Spinner visibility={spinner} />
 
             <ScrollView>
-                <View style={styles.mainContainer}>
+                <View style={specificNoteStyle.mainContainer}>
 
                     {/* Buttons */}
                     {
@@ -273,12 +274,12 @@ export default function ViewEditNote(props) {
                     {/* Title */}
                     {
                         isNewNote ?
-                            <Text style={styles.mainHeader}>Create Note</Text>
+                            <Text style={specificNoteStyle.mainHeader}>Create Note</Text>
                             :
                             isEditing ?
-                                <Text style={styles.mainHeader}>Edit Note</Text>
+                                <Text style={specificNoteStyle.mainHeader}>Edit Note</Text>
                                 :
-                                <Text style={styles.mainHeader}>{noteTitle}</Text>
+                                <Text style={specificNoteStyle.mainHeader}>{noteTitle}</Text>
                     }
 
 
@@ -289,15 +290,15 @@ export default function ViewEditNote(props) {
                                 <Text style={{ color: 'gray', fontWeight: 'bold', textAlign: 'center', alignSelf: 'center' }}>{noteDate}</Text>
                             </View>
                             :
-                            <TouchableOpacity style={styles.viewContainer} onPress={() => showMode('date')}>
+                            <TouchableOpacity style={specificNoteStyle.viewContainer} onPress={() => showMode('date')}>
                                 <TextInput
                                     editable={false}
-                                    style={styles.editableTxtInput}
+                                    style={specificNoteStyle.editableTxtInput}
                                     placeholder='Pick Date'
                                     defaultValue={noteDate}
                                 ></TextInput>
 
-                                <Text style={styles.fieldText}>Date:</Text>
+                                <Text style={specificNoteStyle.fieldText}>Date:</Text>
 
                             </TouchableOpacity>
                     }
@@ -321,16 +322,16 @@ export default function ViewEditNote(props) {
                     {/* Title Textbox */}
                     {
                         isNewNote || isEditing ?
-                            <View style={styles.viewContainer}>
+                            <View style={specificNoteStyle.viewContainer}>
 
                                 <TextInput
                                     editable={isNewNote || isEditing ? true : false}
-                                    style={isNewNote || isEditing ? styles.editableTxtInput : styles.txtInput}
+                                    style={isNewNote || isEditing ? specificNoteStyle.editableTxtInput : specificNoteStyle.txtInput}
                                     onChangeText={(e) => setNoteTitle(e)}
                                     defaultValue={isNewNote ? '' : noteTitle}
                                 ></TextInput>
 
-                                <Text style={styles.fieldText}>Title:</Text>
+                                <Text style={specificNoteStyle.fieldText}>Title:</Text>
 
                             </View>
                             :
@@ -341,24 +342,24 @@ export default function ViewEditNote(props) {
                     {/* Date */}
                     {
                         isNewNote || isEditing ?
-                            <View style={styles.viewContainer}>
+                            <View style={specificNoteStyle.viewContainer}>
 
                                 <AutoGrowTextInput
                                     defaultValue={isNewNote ? '' : noteBody}
                                     onChangeText={(e) => setNoteBody(e)}
                                     editable={true}
-                                    style={styles.editableMultilineInput}
+                                    style={specificNoteStyle.editableMultilineInput}
                                 />
 
-                                <Text style={styles.fieldText}>Text:</Text>
+                                <Text style={specificNoteStyle.fieldText}>Text:</Text>
 
                             </View>
                             :
-                            <View style={styles.viewContainer}>
+                            <View style={specificNoteStyle.viewContainer}>
                                 <AutoGrowTextInput
                                     defaultValue={noteBody}
                                     editable={false}
-                                    style={styles.multilineInput}
+                                    style={specificNoteStyle.multilineInput}
                                 />
                             </View>
                     }
@@ -366,13 +367,13 @@ export default function ViewEditNote(props) {
 
                     {
                         isNewNote ?
-                            <TouchableOpacity onPress={() => validateFields('save')} style={styles.saveButton}>
-                                <Text style={styles.saveButtonText}> save new note </Text>
+                            <TouchableOpacity onPress={() => validateFields('save')} style={specificNoteStyle.saveButton}>
+                                <Text style={specificNoteStyle.saveButtonText}> save new note </Text>
                             </TouchableOpacity>
                             :
                             isEditing ?
-                                <TouchableOpacity onPress={() => validateFields('update')} style={styles.saveButton}>
-                                    <Text style={styles.saveButtonText}> save changes </Text>
+                                <TouchableOpacity onPress={() => validateFields('update')} style={specificNoteStyle.saveButton}>
+                                    <Text style={specificNoteStyle.saveButtonText}> save changes </Text>
                                 </TouchableOpacity>
                                 :
                                 <></>
@@ -383,135 +384,3 @@ export default function ViewEditNote(props) {
         </>
     )
 }
-
-const styles = StyleSheet.create({
-
-    //Container:
-    mainContainer: {
-        flex: 1,
-        paddingHorizontal: 20,
-        backgroundColor: 'white',
-        minHeight: Dimensions.get('window').height - 45
-    },
-    viewContainer: {
-        flexDirection: 'row',
-        alignItems: 'baseline'
-    },
-
-    //Headings:
-    mainHeader: {
-        color: '#3f6ac4',
-        fontSize: 40,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 30,
-        marginBottom: 20
-    },
-    heading: {
-        fontSize: 25,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 10
-    },
-    fieldText: {
-        fontWeight: 'bold',
-        alignSelf: 'center',
-        marginLeft: 20
-    },
-
-
-    //Inputs:
-    txtInput: {
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        marginVertical: 15,
-        width: Dimensions.get('window').width * 0.85,
-        height: 50,
-        backgroundColor: '#dfe0e4',
-        borderRadius: 20,
-        flex: 1,
-        textAlign: 'left',
-
-    },
-    editableTxtInput: {
-        paddingHorizontal: 20,
-        marginVertical: 25,
-        width: Dimensions.get('window').width * 0.85,
-        backgroundColor: 'white',
-        borderWidth: 1,
-        flex: 1,
-        textAlign: 'left',
-        backgroundColor: 'white',
-        borderColor: 'transparent',
-        borderWidth: 1,
-        borderBottomColor: '#3f6ac4',
-        color: 'black'
-    },
-    multilineInput: {
-
-        paddingVertical: 15,
-        paddingHorizontal: 20,
-        width: Dimensions.get('window').width * 0.85,
-        backgroundColor: '#dfe0e4',
-        borderRadius: 20,
-        flex: 1,
-        textAlign: 'left',
-        textAlignVertical: 'top',
-        borderColor: 'transparent',
-        borderWidth: 1,
-        maxHeight: Dimensions.get('window').height * 0.7,
-        minHeight: Dimensions.get('window').height * 0.20,
-        color: 'black'
-    },
-    editableMultilineInput: {
-
-        paddingHorizontal: 20,
-        marginVertical: 25,
-        width: Dimensions.get('window').width * 0.85,
-        minHeight: Dimensions.get('window').height * 0.10,
-        backgroundColor: 'white',
-        flex: 1,
-        textAlign: 'left',
-        borderColor: 'transparent',
-        borderWidth: 1,
-        borderBottomColor: '#3f6ac4',
-        textAlignVertical: 'center',
-        color: 'black'
-    },
-
-    //Save Button:
-    saveButton: {
-        backgroundColor: '#3f6ac4',
-        borderRadius: 50,
-        padding: 7,
-        width: Dimensions.get('window').width * 0.9,
-        height: 45,
-        display: 'flex',
-        justifyContent: 'center',
-        alignSelf: 'center',
-        marginVertical: 30
-    },
-    saveButtonText:
-    {
-        color: 'white',
-        textAlign: 'center',
-        fontSize: 18,
-        alignSelf: 'center',
-        fontWeight: 'bold'
-    },
-
-    //Button:
-    pickDateButton: {
-        width: Dimensions.get('window').width * 0.85,
-        backgroundColor: 'white',
-        flex: 1,
-        textAlign: 'left',
-        borderColor: 'transparent',
-        borderWidth: 1,
-        borderBottomColor: '#3f6ac4',
-        height: 45,
-        display: 'flex',
-        justifyContent: 'center',
-        alignSelf: 'center'
-    },
-});

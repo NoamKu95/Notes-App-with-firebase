@@ -2,7 +2,7 @@
 
 //Outer Imports -
 import * as React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, Dimensions, StatusBar } from 'react-native';
+import { Text, TouchableOpacity, View, Dimensions, StatusBar } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useState, useEffect } from 'react';
 // import AwesomeAlert from 'react-native-awesome-alerts';
@@ -11,6 +11,7 @@ import { useNavigation } from '@react-navigation/native';
 import { collection, getDocs } from 'firebase/firestore';
 
 //Inner Imports -
+import listModeStyle from '../Style/listModeStyle';
 import NoteCard from '../Components/NoteCard';
 import WelcomeMessage from '../Components/WelcomeMessage';
 import { db } from '../Firebase/firebase';
@@ -140,7 +141,7 @@ export default function NotificationsList(props) {
 
             <Spinner visibility={spinner} />
 
-            <View style={styles.mainContainer}>
+            <View style={listModeStyle.mainContainer}>
 
 
                 <WelcomeMessage name={userName} pressLogout={() => logUserOut()} />
@@ -149,15 +150,15 @@ export default function NotificationsList(props) {
                     notes.length == 0 ?
                         <></>
                         :
-                        <Text style={styles.mainHeading}>My Notes</Text>
+                        <Text style={listModeStyle.mainHeading}>My Notes</Text>
                 }
 
 
                 <ScrollView>
                     {
                         notes.length == 0 ?
-                            <View style={styles.noNotesContainer}>
-                                <Text style={styles.noNotesYet}>No notes yet!</Text>
+                            <View style={listModeStyle.noNotesContainer}>
+                                <Text style={listModeStyle.noNotesYet}>No notes yet!</Text>
                                 <Text>Click the (+) button to create a new note</Text>
                             </View>
                             :
@@ -176,57 +177,10 @@ export default function NotificationsList(props) {
                 <TouchableOpacity
                     activeOpacity={0.7}
                     onPress={() => props.createNewNote()}
-                    style={styles.touchableOpacityStyle}>
+                    style={listModeStyle.touchableOpacityStyle}>
                     <AntDesign name="pluscircle" size={45} color="#588ae9" />
                 </TouchableOpacity>
             </View>
         </>
     );
 }
-
-
-
-
-const styles = StyleSheet.create({
-
-    //Containers:
-    mainContainer: {
-        minHeight: Dimensions.get('window').height - 25,
-        backgroundColor: '#fafafa',
-        flex: 1,
-        paddingBottom: 30
-    },
-    noNotesContainer:
-    {
-        alignItems: 'center',
-        marginTop: '50%'
-    },
-
-    //Headers:
-    mainHeading:
-    {
-        fontSize: 25,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginTop: 20,
-        color: '#1a3d60',
-    },
-    noNotesYet:
-    {
-        textAlign: 'center',
-        fontWeight: 'bold',
-        fontSize: 25,
-        paddingBottom: 15
-    },
-
-    //Sticky Button:
-    touchableOpacityStyle: {
-        position: 'absolute',
-        width: 50,
-        height: 50,
-        alignItems: 'center',
-        justifyContent: 'center',
-        left: 10,
-        bottom: 30,
-    },
-});
