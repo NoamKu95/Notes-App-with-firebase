@@ -24,7 +24,7 @@ const signupStyle = StyleSheet.create({
         fontSize: 40,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginTop: Dimensions.get('window').height / 7
+        marginTop: 45
     },
     fieldText: {
         flex: 1,

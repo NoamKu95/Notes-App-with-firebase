@@ -22,7 +22,7 @@ const specificNoteStyle = StyleSheet.create({
         fontSize: 40,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginTop: 30,
+        marginTop: 45,
         marginBottom: 20
     },
     heading: {
@@ -86,7 +86,7 @@ const specificNoteStyle = StyleSheet.create({
         paddingHorizontal: 20,
         marginVertical: 25,
         width: Dimensions.get('window').width * 0.85,
-        minHeight: Dimensions.get('window').height * 0.10,
+        minHeight: Dimensions.get('window').height * 0.07,
         backgroundColor: 'white',
         flex: 1,
         textAlign: 'left',
