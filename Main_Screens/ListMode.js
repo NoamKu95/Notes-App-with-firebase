@@ -137,7 +137,7 @@ export default function NotificationsList(props) {
         <>
             <StatusBar backgroundColor='#fafafa' barStyle='dark-content' />
 
-            <AlertPopup showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} alertTitle={alertTitle}/>
+            <AlertPopup showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} alertTitle={alertTitle} />
 
             <Spinner visibility={spinner} />
 
@@ -146,6 +146,7 @@ export default function NotificationsList(props) {
 
                 <WelcomeMessage name={userName} pressLogout={() => logUserOut()} />
 
+                {/* Heading */}
                 {
                     notes.length == 0 ?
                         <></>
@@ -153,7 +154,7 @@ export default function NotificationsList(props) {
                         <Text style={listModeStyle.mainHeading}>My Notes</Text>
                 }
 
-
+                {/* Notes list */}
                 <ScrollView>
                     {
                         notes.length == 0 ?
@@ -174,12 +175,14 @@ export default function NotificationsList(props) {
                     }
                 </ScrollView>
 
+                {/* Add new note */}
                 <TouchableOpacity
                     activeOpacity={0.7}
                     onPress={() => props.createNewNote()}
                     style={listModeStyle.touchableOpacityStyle}>
                     <AntDesign name="pluscircle" size={45} color="#588ae9" />
                 </TouchableOpacity>
+                
             </View>
         </>
     );

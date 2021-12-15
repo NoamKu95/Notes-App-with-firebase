@@ -391,6 +391,7 @@ export default function ViewEditNote(props) {
                     }
 
 
+                    {/* Photo Chosen */}
                     {
                         photoUri != null ?
                             <View>
@@ -402,6 +403,7 @@ export default function ViewEditNote(props) {
                     }
 
 
+                    {/* Add / Remove photo button */}
                     {
                         (isNewNote || isEditing) ?
                             photoUri != null ?
@@ -422,7 +424,7 @@ export default function ViewEditNote(props) {
                             <></>
                     }
 
-
+                    {/* Save Button */}
                     {
                         isNewNote ?
                             <TouchableOpacity onPress={() => validateFields('save')} style={specificNoteStyle.saveButton}>

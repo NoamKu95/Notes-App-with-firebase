@@ -463,10 +463,12 @@ export default function MapMode(props) {
         <>
             <StatusBar backgroundColor='#fafafa' barStyle='dark-content' />
 
-            <AlertPopup showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} alertTitle={alertTitle}/>
+            <AlertPopup showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} alertTitle={alertTitle} />
 
             <Spinner visibility={spinner} />
 
+
+            {/* Change map style / reset map */}
             <View style={mapModeStyle.upSectionContainer}>
 
                 <View style={mapModeStyle.swichableContainer}>
@@ -485,6 +487,7 @@ export default function MapMode(props) {
             </View>
 
 
+            {/* Add note */}
             <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => props.createNewNote()}
@@ -493,7 +496,7 @@ export default function MapMode(props) {
             </TouchableOpacity>
 
 
-
+            {/* Map */}
             <MapView
                 style={mapModeStyle.mapGeneralStyle}
                 region={focusRegion}
