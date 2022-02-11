@@ -4,12 +4,12 @@ import {getFirestore} from '@firebase/firestore'
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDYU9knatJu3QJcTAQn4_HguZLGCDaDTNY",
-    authDomain: "moveo-notes-app.firebaseapp.com",
-    projectId: "moveo-notes-app",
-    storageBucket: "moveo-notes-app.appspot.com",
-    messagingSenderId: "40688182564",
-    appId: "1:40688182564:web:ffe9794915c0b219147fb1"
+    apiKey: "xxxxxxxxxxxxxxxxxx",
+    authDomain: "xxxxxxxxxxxxxxxx",
+    projectId: "xxxxxxxxxxxxx",
+    storageBucket: "xxxxxxxxxxxxxxx",
+    messagingSenderId: "xxxxxx",
+    appId: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 };
 
 const app = initializeApp(firebaseConfig);
